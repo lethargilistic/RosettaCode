@@ -2,6 +2,7 @@
 __author__ = 'Mike'
 import turtle
 
+turtle.bgcolor("green")
 t = turtle.Turtle()
 t.color("red", "blue")
 t.begin_fill()
