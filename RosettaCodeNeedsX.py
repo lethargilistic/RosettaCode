@@ -5,7 +5,7 @@ import re
 
 
 BASE_URL = "http://rosettacode.org"
-ARTICLE_PATTERN = re.compile('<li><a href="(/wiki/(?:\w|_)+)"')
+ARTICLE_PATTERN = re.compile('<li><a href="(/wiki/(?:\w|_|/)+)"')
 
 
 def readPageHTML(url_extension):
@@ -45,15 +45,14 @@ def filterProblems(arts, lang):
 
 
 def outputResults(results, lang):
-    print()
-    print("There are", len(results), "tasks without Python solutions.")
-    for art in results:
-        print("    " + art.replace("_", " ")[6:] + "    (" + BASE_URL+art + ")")
-
     with open(lang + "Problems.txt", "w") as f:
+        print("\nThere are", len(results), "tasks without Python solutions.")
         f.write("There are " + str(len(results)) + " tasks without Python solutions.\n")
+
         for art in results:
-            f.write("    " + art.replace("_", " ")[6:] + "    (" + BASE_URL+art + ")\n")
+            art_cleaned = art.replace("_", " ")[6:] #Cuts of /wiki/ and replaces any _ in the link with space
+            print("    " + art_cleaned + "    (" + BASE_URL+art + ")")
+            f.write("    " + art_cleaned + "    (" + BASE_URL+art + ")\n")
 
 
 def main():
